@@ -32,6 +32,12 @@
     return field[lang()] || field.nl || "";
   }
 
+  var DAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  function dayName(d) {
+    var name = t("common.days." + DAY_KEYS[d]);
+    return lang() === "nl" ? name.toLowerCase() : name;
+  }
+
   function formatPrice(price) {
     return "€ " + price.toFixed(2).replace(".", ",");
   }
@@ -108,19 +114,19 @@
           ? ' <span class="menu-item-vegetarian-icon" title="' + escapeHtml(t("menu.diet.vegetarian")) + '" aria-label="' + escapeHtml(t("menu.diet.vegetarian")) + '">V</span>'
           : "";
 
-        /* Pizzadag: donderdagprijs alleen tonen als die echt lager is, en
-           altijd met de vermelding dat het alleen op donderdag geldt. */
-        var thursdayHtml = "";
-        if (item.thursdayOnly) {
-          thursdayHtml = '<div class="menu-item-thursday">' + escapeHtml(t("menu.thursdayOnly")) + "</div>";
-        } else if (item.thursdayPrice && item.thursdayPrice < item.price) {
-          thursdayHtml = '<div class="menu-item-thursday">' + escapeHtml(t("menu.thursdayPrice").replace("{price}", formatPrice(item.thursdayPrice))) + "</div>";
+        /* Dagprijs (bv. Pizzadag op donderdag, Satédag op zaterdag): alleen
+           tonen als hij echt lager is, en altijd met de dag erbij. */
+        var dayHtml = "";
+        if (item.onlyDay != null) {
+          dayHtml = '<div class="menu-item-day">' + escapeHtml(t("menu.dayOnly").replace("{day}", dayName(item.onlyDay))) + "</div>";
+        } else if (item.dayDeal && item.dayDeal.price < item.price) {
+          dayHtml = '<div class="menu-item-day">' + escapeHtml(t("menu.dayPrice").replace("{day}", dayName(item.dayDeal.day)).replace("{price}", formatPrice(item.dayDeal.price))) + "</div>";
         }
 
         el.innerHTML =
           '<div class="menu-item-info"><h3>' + escapeHtml(itemName) + veganIconHtml + vegetarianIconHtml + "</h3>" +
           (itemDesc ? "<p>" + escapeHtml(itemDesc) + "</p>" : "") +
-          badgesHtml + thursdayHtml +
+          badgesHtml + dayHtml +
           '</div><div class="menu-item-price">' + formatPrice(item.price) + "</div>";
         grid.appendChild(el);
       });

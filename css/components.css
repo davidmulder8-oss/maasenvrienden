@@ -739,8 +739,8 @@ textarea.input { resize: vertical; min-height: 120px; }
   top: -2px;
 }
 
-/* Pizzadag-label (alleen op donderdag) */
-.menu-item-thursday {
+/* Dagprijs-label (bv. alleen op donderdag of zaterdag) */
+.menu-item-day {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -752,7 +752,6 @@ textarea.input { resize: vertical; min-height: 120px; }
   font-size: 0.78rem;
   font-weight: 700;
 }
-.menu-item-thursday::before { content: "🍕"; }
 
 .menu-item-diet-tags {
   display: flex;
