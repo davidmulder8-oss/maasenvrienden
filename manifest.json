@@ -1,0 +1,14 @@
+{
+  "name": "Maas en Vrienden",
+  "short_name": "Maas en Vrienden",
+  "description": "Eetcafé aan de Maas in Andel. De smaak van samen genieten.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FAF3E6",
+  "theme_color": "#263724",
+  "lang": "nl",
+  "icons": [
+    { "src": "images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "images/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
