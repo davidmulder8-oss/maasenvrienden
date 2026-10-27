@@ -51,22 +51,15 @@
     try { sessionStorage.setItem(STORAGE_KEY, "1"); } catch (e) { /* noop */ }
   }
 
+  /* Alleen evenementen die in het beheer als pop-up zijn aangevinkt
+     ("featured": true) en nog niet voorbij zijn. */
   function getFeaturedEvent() {
-    var all = window.EVENTS_DATA || [];
-    if (!all.length) return null;
-    var featured = all.filter(function (ev) { return ev.featured; }).sort(function (a, b) {
-      return new Date(a.date) - new Date(b.date);
-    });
-    if (featured.length) return featured[0];
-    var events = all.slice().sort(function (a, b) {
-      return new Date(a.date) - new Date(b.date);
-    });
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    var upcoming = events.filter(function (ev) {
-      return new Date(ev.date + "T00:00:00") >= today;
-    });
-    return upcoming[0] || events[events.length - 1];
+    var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    var todayIso = d.toISOString().slice(0, 10);
+    var featured = (window.EVENTS_DATA || []).filter(function (ev) {
+      return ev.featured && (ev.endDate || ev.date) >= todayIso;
+    }).sort(function (a, b) { return new Date(a.date) - new Date(b.date); });
+    return featured[0] || null;
   }
 
   function refreshText() {

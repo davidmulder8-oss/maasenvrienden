@@ -11,9 +11,9 @@
  * bevestigde evenementen zodat er nooit per ongeluk iets verzonnens als
  * echt wordt gepubliceerd).
  *
- * "featured": true dwingt dit item af in de aankondigingspopup op de
- * homepage, ongeacht datum-volgorde (bv. voor een belangrijke mededeling
- * zoals een vakantiesluiting die voorrang moet krijgen op een evenement
- * dat toevallig eerder plaatsvindt). Zie js/event-popup.js.
+ * "featured": true = dit evenement verschijnt als pop-up op de homepage.
+ * "endDate" (optioneel, YYYY-MM-DD) = laatste dag; daarna verdwijnt het
+ * evenement vanzelf van de site. Zonder endDate verdwijnt het na "date".
+ * Beheer gaat het makkelijkst via de beheerpagina (maasenvrienden.online).
  */
 window.EVENTS_DATA = [];

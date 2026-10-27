@@ -5,7 +5,11 @@
 (function () {
   "use strict";
 
-  var events = (window.EVENTS_DATA || []).slice().sort(function (a, b) {
+  /* Voorbije evenementen (na de einddatum, of anders de datum) niet meer tonen */
+  var todayIso = (function () { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); })();
+  var events = (window.EVENTS_DATA || []).filter(function (ev) {
+    return (ev.endDate || ev.date) >= todayIso;
+  }).sort(function (a, b) {
     return new Date(a.date) - new Date(b.date);
   });
 
