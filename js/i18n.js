@@ -123,6 +123,11 @@
       "amenity.debitCard": "Pin",
       "amenity.creditCard": "Creditcard",
 
+      "home.nearby.eyebrow": "Even een stukje rijden",
+      "home.nearby.title": "Goed bereikbaar vanuit de omgeving",
+      "home.nearby.desc": "Op zoek naar een gezellig eetcafé, restaurant of café in de buurt? Maas en Vrienden ligt aan de Hoge Maasdijk in Andel, in het Land van Heusden en Altena. Je rijdt zo vanuit Gorinchem, Woudrichem, Zaltbommel, Heusden of Den Bosch naar ons terras aan de Maas.",
+      "home.nearby.note": "Reistijden met de auto, ongeveer. Op de fiets? Langs de Maasdijk is het een prachtige route. Parkeren kan bij de deur.",
+
       "home.cta.title": "Zin om te komen genieten?",
       "home.cta.desc": "Reserveer je tafel online, binnen aan de bar of buiten op het terras. We houden een plekje voor je vrij.",
 
@@ -500,6 +505,11 @@
       "amenity.debitCard": "Debit card",
       "amenity.creditCard": "Credit card",
 
+      "home.nearby.eyebrow": "Just a short drive",
+      "home.nearby.title": "Easy to reach from the area",
+      "home.nearby.desc": "Looking for a cosy café or restaurant nearby? Maas en Vrienden is on the Hoge Maasdijk in Andel, in the Land van Heusden en Altena. It's a short drive from Gorinchem, Woudrichem, Zaltbommel, Heusden or Den Bosch to our terrace on the river Maas.",
+      "home.nearby.note": "Approximate travel times by car. Coming by bike? The route along the Maas dyke is beautiful. Parking right at the door.",
+
       "home.cta.title": "Feel like coming over?",
       "home.cta.desc": "Book your table online, inside at the bar or outside on the terrace. We'll keep a spot for you.",
 
@@ -869,6 +879,11 @@
       "amenity.contactless": "Kontaktloses Bezahlen",
       "amenity.debitCard": "EC-Karte",
       "amenity.creditCard": "Kreditkarte",
+
+      "home.nearby.eyebrow": "Nur ein kurzes Stück",
+      "home.nearby.title": "Gut erreichbar aus der Umgebung",
+      "home.nearby.desc": "Sie suchen ein gemütliches Café oder Restaurant in der Nähe? Maas en Vrienden liegt am Hoge Maasdijk in Andel, im Land van Heusden en Altena. Von Gorinchem, Woudrichem, Zaltbommel, Heusden oder Den Bosch sind Sie schnell bei unserer Terrasse an der Maas.",
+      "home.nearby.note": "Ungefähre Fahrzeiten mit dem Auto. Mit dem Fahrrad? Die Strecke entlang des Maasdeichs ist wunderschön. Parkplätze direkt vor der Tür.",
 
       "home.cta.title": "Lust, vorbeizukommen?",
       "home.cta.desc": "Reservieren Sie Ihren Tisch online, drinnen an der Bar oder draußen auf der Terrasse. Wir halten einen Platz für Sie frei.",
