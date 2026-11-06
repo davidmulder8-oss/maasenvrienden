@@ -63,7 +63,7 @@
         label.textContent = status.today ? t("common.todayOpen", "Vandaag geopend") : t("common.todayClosed", "Vandaag gesloten");
       }
       if (hours) {
-        hours.textContent = status.today ? status.today.open + " – " + status.today.close + " uur" : t("common.closed", "Gesloten");
+        hours.textContent = status.today ? status.today.open + " " + t("common.timeUntil", "tot") + " " + status.today.close + " uur" : t("common.closed", "Gesloten");
       }
     });
   }
@@ -83,7 +83,7 @@
         nameSpan.textContent = t(dayKeyPrefix + DAY_KEYS[dayIndex], DAY_KEYS[dayIndex]);
         var timeSpan = document.createElement("span");
         timeSpan.className = "hours-time";
-        timeSpan.textContent = entry ? entry.open + " – " + entry.close : t("common.closed", "Gesloten");
+        timeSpan.textContent = entry ? entry.open + " " + t("common.timeUntil", "tot") + " " + entry.close : t("common.closed", "Gesloten");
         row.appendChild(nameSpan);
         row.appendChild(timeSpan);
         list.appendChild(row);
