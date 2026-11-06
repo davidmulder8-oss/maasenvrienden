@@ -73,6 +73,15 @@
       "home.intro.cta": "Lees ons verhaal",
       "home.intro.photoCaption": "Foto: de Maas bij Andel",
 
+      "home.winter.eyebrow": "Winter bij Maas en Vrienden",
+      "home.winter.title": "Winter aan de Maas",
+      "home.winter.desc": "Buiten ligt de sneeuw, binnen branden de lichtjes. Kom lekker opwarmen met een warme chocomel, een goed glas en een stevige maaltijd.",
+      "home.winter.c1": "Lichtjes in de sneeuw",
+      "home.winter.c2": "Sneeuw op het terras",
+      "home.winter.c3": "Warm welkom",
+      "home.winter.c4": "Winter aan de dijk",
+      "home.winter.c5": "Kerstsfeer aan de Maas",
+
       "home.terras.eyebrow": "Buiten genieten",
       "home.terras.title": "Ons terras aan de dijk",
       "home.terras.desc": "Op een zonnige middag of een warme zomeravond is ons terras de mooiste plek voor een drankje, met uitzicht over het water.",
@@ -455,6 +464,15 @@
       "home.intro.cta": "Read our story",
       "home.intro.photoCaption": "Photo: the Maas near Andel",
 
+      "home.winter.eyebrow": "Winter at Maas en Vrienden",
+      "home.winter.title": "Winter on the Maas",
+      "home.winter.desc": "Snow outside, twinkling lights inside. Come and warm up with a hot chocolate, a good drink and a hearty meal.",
+      "home.winter.c1": "Lights in the snow",
+      "home.winter.c2": "Snow on the terrace",
+      "home.winter.c3": "A warm welcome",
+      "home.winter.c4": "Winter on the dyke",
+      "home.winter.c5": "Christmas by the Maas",
+
       "home.terras.eyebrow": "Enjoy the outdoors",
       "home.terras.title": "Our terrace on the dyke",
       "home.terras.desc": "On a sunny afternoon or a warm summer evening, our terrace is the best place for a drink with a view of the water.",
@@ -829,6 +847,15 @@
       "home.intro.check3": "Ein herzliches Willkommen für Jung und Alt",
       "home.intro.cta": "Unsere Geschichte lesen",
       "home.intro.photoCaption": "Foto: die Maas bei Andel",
+
+      "home.winter.eyebrow": "Winter bei Maas en Vrienden",
+      "home.winter.title": "Winter an der Maas",
+      "home.winter.desc": "Draußen liegt Schnee, drinnen leuchten die Lichter. Wärmen Sie sich auf mit einer heißen Schokolade, einem guten Glas und einer herzhaften Mahlzeit.",
+      "home.winter.c1": "Lichter im Schnee",
+      "home.winter.c2": "Schnee auf der Terrasse",
+      "home.winter.c3": "Herzlich willkommen",
+      "home.winter.c4": "Winter am Deich",
+      "home.winter.c5": "Weihnachtsstimmung an der Maas",
 
       "home.terras.eyebrow": "Draußen genießen",
       "home.terras.title": "Unsere Terrasse am Deich",
