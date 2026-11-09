@@ -333,25 +333,34 @@
     submitBtn.classList.add("is-loading");
     submitBtn.disabled = true;
 
-    // Eerste poging; bij een netwerkfout nog één keer proberen.
-    // Duurt het langer dan SEND_TIMEOUT_MS, dan stopt het laden en krijgt
-    // de gast meteen een werkende terugvaloptie (mail of bellen).
-    sendOnce(payload)
-      .catch(function (err) {
-        if (err && err.retry) return sendOnce(payload);
-        throw err;
-      })
-      .then(function () {
-        done();
-        showSuccess(info);
-      })
-      .catch(function () {
-        done();
-        showFallback(payload, info);
-      });
+    // FormSubmit doet er soms 15 tot 20 seconden over. De gast hoeft daar
+    // niet op te wachten: het verzoek gaat met keepalive de deur uit en loopt
+    // door, ook als de pagina gesloten wordt. Na QUICK_MS tonen we "Bedankt".
+    // Komt er later toch een fout terug, dan proberen we het nog één keer en
+    // lukt dat niet, dan krijgt de gast alsnog de mail/bel-knoppen te zien.
+    var request = sendWithRetry(payload);
+    var settled = false;
+    var shownOptimistic = false;
+
+    request.then(function () {
+      settled = true;
+      if (!shownOptimistic) { done(); showSuccess(info); }
+    }, function () {
+      settled = true;
+      done();
+      if (shownOptimistic) { form.hidden = false; successPanel.hidden = true; }
+      showFallback(payload, info);
+    });
+
+    setTimeout(function () {
+      if (settled) return;
+      shownOptimistic = true;
+      done();
+      showSuccess(info);
+    }, QUICK_MS);
   });
 
-  var SEND_TIMEOUT_MS = 9000;
+  var QUICK_MS = 2500;
   var sending = false;
   var sendFallback = document.getElementById("sendFallback");
   var sendByMail = document.getElementById("sendByMail");
@@ -362,20 +371,23 @@
     submitBtn.disabled = false;
   }
 
-  function sendOnce(payload) {
-    var controller = window.AbortController ? new AbortController() : null;
-    var timer = null;
-    var timeout = new Promise(function (_, reject) {
-      timer = setTimeout(function () {
-        if (controller) controller.abort();
-        reject({ retry: false, reason: "timeout" });
-      }, SEND_TIMEOUT_MS);
+  function sendWithRetry(payload) {
+    return sendOnce(payload).catch(function (err) {
+      if (err && err.retry) return sendOnce(payload);
+      throw err;
     });
-    var request = fetch(FORMSUBMIT_ENDPOINT, {
+  }
+
+  function sendOnce(payload) {
+    // Gewone formulierdata (geen JSON): dan is er geen extra CORS-vooraanvraag
+    // nodig en mag de browser het verzoek met keepalive laten doorlopen.
+    var body = new URLSearchParams();
+    Object.keys(payload).forEach(function (k) { body.append(k, payload[k]); });
+    return fetch(FORMSUBMIT_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload),
-      signal: controller ? controller.signal : undefined
+      headers: { Accept: "application/json" },
+      body: body,
+      keepalive: true
     })
       .catch(function () { throw { retry: true, reason: "network" }; })
       .then(function (res) {
@@ -386,10 +398,6 @@
           throw { retry: res.status >= 500, reason: (data && data.message) || ("HTTP " + res.status) };
         });
       });
-    return Promise.race([request, timeout]).then(
-      function (v) { clearTimeout(timer); return v; },
-      function (e) { clearTimeout(timer); throw e; }
-    );
   }
 
   function hideFallback() {
