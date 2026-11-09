@@ -189,6 +189,10 @@
       "reserveren.form.footnote": "Je ontvangt na verzenden automatisch een bevestiging per e-mail. Deze reservering is aanvraag onder voorbehoud van beschikbaarheid.",
       "reserveren.form.notConfigured": "Het reserveringsformulier is nog niet gekoppeld aan een verzendservice. Neem contact op via info@maasenvrienden.nl of bel 06 53 20 04 21, of zie README.md om Web3Forms te activeren.",
       "reserveren.form.sendError": "Er ging iets mis bij het versturen. Probeer het opnieuw, of neem contact op via info@maasenvrienden.nl / 06 53 20 04 21.",
+      "reserveren.form.sendFallback": "Het versturen lukt nu even niet. Geen zorgen: met de knop hieronder stuur je dezelfde reservering met één klik via je eigen mail, of bel ons direct.",
+      "reserveren.form.sendByMail": "Verstuur via e-mail",
+      "reserveren.form.sendCall": "Bel 06 53 20 04 21",
+      "reserveren.form.sending": "Bezig met versturen...",
       "reserveren.form.summaryPerson": "persoon",
       "reserveren.form.summaryPersons": "personen",
 
@@ -580,6 +584,10 @@
       "reserveren.form.footnote": "You'll automatically receive an email confirmation after submitting. This reservation is a request subject to availability.",
       "reserveren.form.notConfigured": "The reservation form isn't connected to a sending service yet. Please contact us at info@maasenvrienden.nl or call 06 53 20 04 21, or see README.md to activate Web3Forms.",
       "reserveren.form.sendError": "Something went wrong while sending. Please try again, or contact us at info@maasenvrienden.nl / 06 53 20 04 21.",
+      "reserveren.form.sendFallback": "Sending is not working right now. No worries: use the button below to send the same reservation with one click from your own email, or call us directly.",
+      "reserveren.form.sendByMail": "Send by email",
+      "reserveren.form.sendCall": "Call +31 6 53 20 04 21",
+      "reserveren.form.sending": "Sending...",
       "reserveren.form.summaryPerson": "guest",
       "reserveren.form.summaryPersons": "guests",
 
@@ -965,6 +973,10 @@
       "reserveren.form.footnote": "Nach dem Absenden erhalten Sie automatisch eine Bestätigung per E-Mail. Diese Reservierung ist eine Anfrage vorbehaltlich Verfügbarkeit.",
       "reserveren.form.notConfigured": "Das Reservierungsformular ist noch nicht mit einem Versanddienst verbunden. Kontaktieren Sie uns unter info@maasenvrienden.nl oder telefonisch unter 06 53 20 04 21, oder lesen Sie die README.md, um Web3Forms zu aktivieren.",
       "reserveren.form.sendError": "Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie uns unter info@maasenvrienden.nl / 06 53 20 04 21.",
+      "reserveren.form.sendFallback": "Das Senden funktioniert gerade nicht. Keine Sorge: Mit der Schaltfläche unten senden Sie dieselbe Reservierung mit einem Klick über Ihre eigene E-Mail, oder rufen Sie uns direkt an.",
+      "reserveren.form.sendByMail": "Per E-Mail senden",
+      "reserveren.form.sendCall": "Anrufen +31 6 53 20 04 21",
+      "reserveren.form.sending": "Wird gesendet...",
       "reserveren.form.summaryPerson": "Person",
       "reserveren.form.summaryPersons": "Personen",
 

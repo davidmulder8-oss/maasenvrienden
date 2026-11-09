@@ -188,6 +188,13 @@
               <span class="spinner" aria-hidden="true"></span>
               <span class="btn-label" data-i18n="reserveren.form.submit">Reservering versturen</span>
             </button>
+            <div class="send-fallback" id="sendFallback" role="alert" hidden>
+              <p data-i18n="reserveren.form.sendFallback">Het versturen lukt nu even niet. Geen zorgen: met de knop hieronder stuur je dezelfde reservering met één klik via je eigen mail, of bel ons direct.</p>
+              <div class="send-fallback-actions">
+                <a class="btn btn-primary" id="sendByMail" href="mailto:info@maasenvrienden.nl" data-i18n="reserveren.form.sendByMail">Verstuur via e-mail</a>
+                <a class="btn btn-outline" href="tel:+31653200421" data-i18n="reserveren.form.sendCall">Bel 06 53 20 04 21</a>
+              </div>
+            </div>
             <p class="text-muted" style="font-size:0.85rem; text-align:center; margin-top:14px;" data-i18n="reserveren.form.footnote">Je ontvangt na verzenden automatisch een bevestiging per e-mail. Deze reservering is aanvraag onder voorbehoud van beschikbaarheid.</p>
           </form>
         </div>

@@ -298,6 +298,7 @@
   /* ---------- Submit ---------- */
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (sending) return; // dubbelklikken stuurt niet twee keer
 
     if (form.elements["_honey"] && form.elements["_honey"].value) {
       return; // honeypot triggered, silently ignore
@@ -322,35 +323,101 @@
       Tijd: timeSelect.value + " uur",
       Locatie: locationLabel,
       Opmerkingen: form.elements["notes"].value.trim() || "-",
-      _autoresponse: "Bedankt voor je reservering bij Maas en Vrienden! We hebben je aanvraag ontvangen voor " + dateLabel + " om " + timeSelect.value + " uur (" + guestsInput.value + " personen, " + locationLabel.toLowerCase() + "). We bevestigen deze zo snel mogelijk. Vragen of wijzigingen? Bel 06 - 53 20 04 21 of mail info@maasenvrienden.nl. Tot snel!"
+      _autoresponse: "Bedankt voor je reservering bij Maas en Vrienden! We hebben je aanvraag ontvangen voor " + dateLabel + " om " + timeSelect.value + " uur (" + guestsInput.value + " personen, " + locationLabel.toLowerCase() + "). We bevestigen deze zo snel mogelijk. Vragen of wijzigingen? Bel 06 53 20 04 21 of mail info@maasenvrienden.nl. Tot snel!"
     };
 
+    var info = { name: payload.Naam, dateLabel: dateLabel, time: timeSelect.value, guests: guestsInput.value, locationLabel: locationLabel };
+
+    sending = true;
+    hideFallback();
     submitBtn.classList.add("is-loading");
     submitBtn.disabled = true;
 
-    fetch(FORMSUBMIT_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload)
-    })
-      .then(function (res) { return res.json(); })
-      .then(function (data) {
-        submitBtn.classList.remove("is-loading");
-        submitBtn.disabled = false;
-        if (data && (data.success === "true" || data.success === true)) {
-          showSuccess({ name: payload.Naam, dateLabel: dateLabel, time: timeSelect.value, guests: guestsInput.value, locationLabel: locationLabel });
-        } else {
-          throw new Error((data && data.message) || "Onbekende fout");
-        }
+    // Eerste poging; bij een netwerkfout nog één keer proberen.
+    // Duurt het langer dan SEND_TIMEOUT_MS, dan stopt het laden en krijgt
+    // de gast meteen een werkende terugvaloptie (mail of bellen).
+    sendOnce(payload)
+      .catch(function (err) {
+        if (err && err.retry) return sendOnce(payload);
+        throw err;
+      })
+      .then(function () {
+        done();
+        showSuccess(info);
       })
       .catch(function () {
-        submitBtn.classList.remove("is-loading");
-        submitBtn.disabled = false;
-        errorSummary.hidden = false;
-        errorSummary.querySelector("span").textContent = t("reserveren.form.sendError");
-        errorSummary.scrollIntoView({ behavior: "smooth", block: "center" });
+        done();
+        showFallback(payload, info);
       });
   });
+
+  var SEND_TIMEOUT_MS = 9000;
+  var sending = false;
+  var sendFallback = document.getElementById("sendFallback");
+  var sendByMail = document.getElementById("sendByMail");
+
+  function done() {
+    sending = false;
+    submitBtn.classList.remove("is-loading");
+    submitBtn.disabled = false;
+  }
+
+  function sendOnce(payload) {
+    var controller = window.AbortController ? new AbortController() : null;
+    var timer = null;
+    var timeout = new Promise(function (_, reject) {
+      timer = setTimeout(function () {
+        if (controller) controller.abort();
+        reject({ retry: false, reason: "timeout" });
+      }, SEND_TIMEOUT_MS);
+    });
+    var request = fetch(FORMSUBMIT_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller ? controller.signal : undefined
+    })
+      .catch(function () { throw { retry: true, reason: "network" }; })
+      .then(function (res) {
+        return res.text().then(function (txt) {
+          var data = null;
+          try { data = JSON.parse(txt); } catch (e) { /* geen JSON */ }
+          if (data && (data.success === "true" || data.success === true)) return data;
+          throw { retry: res.status >= 500, reason: (data && data.message) || ("HTTP " + res.status) };
+        });
+      });
+    return Promise.race([request, timeout]).then(
+      function (v) { clearTimeout(timer); return v; },
+      function (e) { clearTimeout(timer); throw e; }
+    );
+  }
+
+  function hideFallback() {
+    if (sendFallback) sendFallback.hidden = true;
+  }
+
+  function showFallback(payload, info) {
+    errorSummary.hidden = true;
+    if (!sendFallback) {
+      errorSummary.hidden = false;
+      errorSummary.querySelector("span").textContent = t("reserveren.form.sendError");
+      return;
+    }
+    var body =
+      "Naam: " + payload.Naam + "\n" +
+      "E-mail: " + payload.email + "\n" +
+      "Telefoon: " + payload.Telefoonnummer + "\n" +
+      "Aantal personen: " + info.guests + "\n" +
+      "Datum: " + info.dateLabel + "\n" +
+      "Tijd: " + info.time + " uur\n" +
+      "Locatie: " + info.locationLabel + "\n" +
+      "Opmerkingen: " + payload.Opmerkingen;
+    sendByMail.href = "mailto:info@maasenvrienden.nl" +
+      "?subject=" + encodeURIComponent("Reservering " + info.dateLabel + " " + info.time + " (" + info.guests + " pers.)") +
+      "&body=" + encodeURIComponent(body);
+    sendFallback.hidden = false;
+    sendFallback.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   function showSuccess(info) {
     var personsLabel = info.guests === "1" ? t("reserveren.form.summaryPerson") : t("reserveren.form.summaryPersons");
