@@ -43,5 +43,30 @@ window.EVENTS_DATA = [
     },
     "image": "images/weekspecial-hutspot.webp",
     "featured": true
+  },
+  {
+    "id": "besloten-feest-2026-11-14",
+    "title": {
+      "nl": "Besloten feest",
+      "en": "Private party",
+      "de": "Geschlossene Gesellschaft"
+    },
+    "date": "2026-11-14",
+    "time": {
+      "nl": "Vanaf 19:30 uur",
+      "en": "From 19:30",
+      "de": "Ab 19:30 Uhr"
+    },
+    "category": {
+      "nl": "Mededeling",
+      "en": "Notice",
+      "de": "Mitteilung"
+    },
+    "description": {
+      "nl": "Let op: zaterdag 14 november zijn we vanaf 19:30 uur gesloten voor een besloten feest. Overdag en tot 19:30 uur ben je gewoon van harte welkom.",
+      "en": "Please note: on Saturday 14 November we are closed from 19:30 for a private party. During the day and until 19:30 you are very welcome as usual.",
+      "de": "Bitte beachten: Am Samstag, 14. November, sind wir ab 19:30 Uhr wegen einer geschlossenen Gesellschaft geschlossen. Tagsüber und bis 19:30 Uhr sind Sie wie gewohnt herzlich willkommen."
+    },
+    "image": "images/hero-avond.jpg"
   }
 ];
