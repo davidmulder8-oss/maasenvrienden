@@ -22,6 +22,16 @@
   var MAX_GUESTS = 20;
   var MIN_GUESTS = 1;
 
+  // Dagen waarop we eerder sluiten voor reserveringen (bijv. besloten feest).
+  // "YYYY-MM-DD": "HH:MM" = vanaf die tijd kan er niet gereserveerd worden.
+  // Voorbije datums mogen blijven staan, die doen niets meer.
+  var CLOSES_EARLY = {
+    "2026-11-14": "19:30" // besloten feest
+  };
+  function earlyCloseMinutes(iso) {
+    return CLOSES_EARLY[iso] ? toMinutes(CLOSES_EARLY[iso]) : null;
+  }
+
   var form = document.getElementById("reservationForm");
   if (!form) return;
 
@@ -138,6 +148,8 @@
       : toMinutes(dayHours.close);
     var windowStart = Math.max(toMinutes(RESERVATION_MIN_TIME), toMinutes(dayHours.open));
     var windowEnd = Math.min(toMinutes(RESERVATION_MAX_TIME), dayCloseMinutes);
+    var early = earlyCloseMinutes(dateInput.value);
+    if (early !== null) windowEnd = Math.min(windowEnd, early);
     var lastSlot = windowEnd - SLOT_MINUTES;
 
     if (lastSlot < windowStart) {
@@ -282,7 +294,9 @@
       fail(timeSelect, t("reserveren.form.timeError"));
     } else {
       var mins = toMinutes(timeSelect.value);
-      if (mins < toMinutes(RESERVATION_MIN_TIME) || mins > toMinutes(RESERVATION_MAX_TIME)) {
+      var earlyLimit = earlyCloseMinutes(dateInput.value);
+      if (mins < toMinutes(RESERVATION_MIN_TIME) || mins > toMinutes(RESERVATION_MAX_TIME) ||
+          (earlyLimit !== null && mins >= earlyLimit)) {
         fail(timeSelect, t("reserveren.form.timeError"));
       }
     }
