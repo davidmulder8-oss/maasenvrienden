@@ -7,6 +7,12 @@
 (function () {
   "use strict";
 
+  /* ---------- Laadscherm weg zodra de pagina geladen is ---------- */
+  var markLoaded = function () { document.documentElement.classList.add("is-loaded"); };
+  if (document.readyState === "complete") markLoaded();
+  else window.addEventListener("load", markLoaded);
+  window.addEventListener("pageshow", markLoaded);
+
   var header = document.querySelector(".site-header");
   var body = document.body;
 
@@ -134,6 +140,44 @@
     backToTop.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+  }
+
+  /* ---------- Vaste reserveerknop onderin op mobiel ---------- */
+  if (currentPage !== "reserveren") {
+    var mobileReserve = document.createElement("a");
+    mobileReserve.className = "btn btn-primary mobile-reserve";
+    mobileReserve.href = "reserveren.html";
+    mobileReserve.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><span data-i18n="common.cta.reserveer">' + t("common.cta.reserveer", "Reserveer een tafel") + "</span>";
+    body.appendChild(mobileReserve);
+    var footerEl = document.querySelector(".site-footer");
+    var toggleMobileReserve = function () {
+      var nearFooter = footerEl && footerEl.getBoundingClientRect().top < window.innerHeight;
+      mobileReserve.classList.toggle("is-visible", window.scrollY > 480 && !nearFooter);
+    };
+    toggleMobileReserve();
+    window.addEventListener("scroll", toggleMobileReserve, { passive: true });
+    document.addEventListener("mev:langchange", function () {
+      mobileReserve.querySelector("span").textContent = t("common.cta.reserveer", "Reserveer een tafel");
+    });
+  }
+
+  /* ---------- Weekspecials: label "Vandaag" op de juiste dag ---------- */
+  var weeklyCards = document.querySelectorAll(".weekly-card[data-weekday]");
+  if (weeklyCards.length) {
+    var markWeeklyToday = function () {
+      var today = new Date().getDay();
+      weeklyCards.forEach(function (card) {
+        var isToday = parseInt(card.getAttribute("data-weekday"), 10) === today;
+        var badge = card.querySelector(".weekly-today");
+        card.classList.toggle("is-today", isToday);
+        if (badge) {
+          badge.hidden = !isToday;
+          badge.textContent = t("specials.today", "Vandaag").replace(/!+$/, "");
+        }
+      });
+    };
+    markWeeklyToday();
+    document.addEventListener("mev:langchange", markWeeklyToday);
   }
 
   /* ---------- Jaartal in de footer ---------- */
