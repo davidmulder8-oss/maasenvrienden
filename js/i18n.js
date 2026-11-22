@@ -36,8 +36,9 @@
       "common.nav.contact": "Contact",
       "common.route": "Plan je route",
       "home.hero.eyebrow": "Eetcafé aan de Maas in Andel",
-      "home.hero.tagline": "Genieten aan de Maas.",
+      "home.hero.tagline": "Genieten aan de Maas",
       "home.hero.lead": "Een warm eetcafé aan de dijk in Andel. Voor een uitgebreide lunch, een gezellig diner of gewoon een goed glas met vrienden. Schuif aan, je bent welkom.",
+      "home.brand.line": "Lunch, diner of gewoon een goed glas met vrienden. Aan de dijk in Andel.",
       "home.agenda.eyebrow": "Agenda",
       "home.agenda.title": "Binnenkort bij Maas en Vrienden",
       "home.agenda.desc": "Speciale avonden, weekspecials en andere momenten om naar uit te kijken.",
@@ -89,7 +90,7 @@
 
       /* ---------- Homepage ---------- */
       "home.hero.photoCaption": "Foto: interieur van het eetcafé",
-      "home.tagline": "De smaak van samen genieten.",
+      "home.tagline": "De smaak van samen genieten",
       "home.status.loading": "Status wordt geladen…",
       "home.contact.phoneNote": "Voor vragen: bel of mail gerust.",
 
@@ -462,8 +463,9 @@
       "common.nav.contact": "Contact",
       "common.route": "Plan your route",
       "home.hero.eyebrow": "Café restaurant on the river Maas in Andel",
-      "home.hero.tagline": "Enjoy life by the Maas.",
+      "home.hero.tagline": "Enjoy life by the Maas",
       "home.hero.lead": "A warm café restaurant on the dyke in Andel. For a relaxed lunch, a cosy dinner or simply a good drink with friends. Pull up a chair, you are welcome.",
+      "home.brand.line": "Lunch, dinner or simply a good drink with friends. On the dyke in Andel.",
       "home.agenda.eyebrow": "What's on",
       "home.agenda.title": "Coming up at Maas en Vrienden",
       "home.agenda.desc": "Special evenings, weekly specials and other moments to look forward to.",
@@ -514,7 +516,7 @@
       "common.photoGeneric": "Photo coming soon",
 
       "home.hero.photoCaption": "Photo: café interior",
-      "home.tagline": "The taste of enjoying life together.",
+      "home.tagline": "The taste of enjoying life together",
       "home.status.loading": "Loading status…",
       "home.contact.phoneNote": "Questions? Feel free to call or email us.",
 
@@ -880,8 +882,9 @@
       "common.nav.contact": "Kontakt",
       "common.route": "Route planen",
       "home.hero.eyebrow": "Eetcafé an der Maas in Andel",
-      "home.hero.tagline": "Genießen an der Maas.",
+      "home.hero.tagline": "Genießen an der Maas",
       "home.hero.lead": "Ein gemütliches Eetcafé am Deich in Andel. Für ein ausgiebiges Mittagessen, ein gemütliches Abendessen oder einfach ein gutes Glas mit Freunden. Setzen Sie sich zu uns, Sie sind herzlich willkommen.",
+      "home.brand.line": "Mittagessen, Abendessen oder einfach ein gutes Glas mit Freunden. Am Deich in Andel.",
       "home.agenda.eyebrow": "Termine",
       "home.agenda.title": "Demnächst bei Maas en Vrienden",
       "home.agenda.desc": "Besondere Abende, Wochenspecials und andere Momente, auf die Sie sich freuen können.",
@@ -932,7 +935,7 @@
       "common.photoGeneric": "Foto folgt",
 
       "home.hero.photoCaption": "Foto: Innenraum des Eetcafés",
-      "home.tagline": "Der Geschmack des gemeinsamen Genießens.",
+      "home.tagline": "Der Geschmack des gemeinsamen Genießens",
       "home.status.loading": "Status wird geladen…",
       "home.contact.phoneNote": "Bei Fragen rufen Sie uns gerne an oder schreiben Sie uns.",
 

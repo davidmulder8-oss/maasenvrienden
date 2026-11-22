@@ -2,7 +2,7 @@
  * Maas en Vrienden - pop-up met de vaste speciale dagen
  *
  * Toont op de homepage beide wekelijkse specials (Pizzadag op donderdag en
- * Satédag op zaterdag) met hun poster. Is het vandaag een van die dagen,
+ * Satédag op zaterdag), zonder poster: alleen dag, naam en prijs. Is het vandaag een van die dagen,
  * dan krijgt die kaart een "Vandaag!"-label. Verschijnt één keer per sessie.
  * Hergebruikt de opmaak van css/event-popup.css + css/specials-popup.css.
  *
@@ -17,8 +17,8 @@
 
   // day: 0 = zondag ... 6 = zaterdag (JS Date#getDay)
   var SPECIALS = [
-    { key: "thu", day: 4, image: "images/pizzadag.jpg" },
-    { key: "sat", day: 6, image: "images/satedag.jpg" }
+    { key: "thu", day: 4 },
+    { key: "sat", day: 6 }
   ];
 
   var overlay = null;
@@ -48,9 +48,6 @@
       return (
         '<article class="special-card' + (isToday ? " is-today" : "") + '">' +
         (isToday ? '<span class="special-card-today" data-sp="today">' + escapeHtml(t("specials.today")) + "</span>" : "") +
-        '<a class="special-card-media" href="' + s.image + '" target="_blank" rel="noopener" aria-label="' + escapeHtml(title) + ', poster">' +
-        '<img src="' + s.image + '" alt="' + escapeHtml(title) + '" loading="eager">' +
-        "</a>" +
         '<div class="special-card-body">' +
         '<p class="special-card-day" data-sp="' + s.key + '.day">' + escapeHtml(t("specials." + s.key + ".day")) + "</p>" +
         '<h3 class="special-card-title" data-sp="' + s.key + '.title">' + escapeHtml(title) + "</h3>" +
