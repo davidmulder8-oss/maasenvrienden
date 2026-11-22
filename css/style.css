@@ -590,3 +590,6 @@ body.is-leaving main { opacity: 0; transition: opacity 0.25s ease; }
   from { letter-spacing: 0.12em; }
   to { letter-spacing: normal; }
 }
+
+/* Verborgen elementen (zoals de bedank- en foutmelding bij reserveren) echt verbergen */
+[hidden] { display: none !important; }

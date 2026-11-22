@@ -14,7 +14,7 @@
     canvas.width = w * dpr; canvas.height = h * dpr;
     canvas.style.width = w + "px"; canvas.style.height = h + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var count = Math.round(Math.min(45, w / 28));
+    var count = Math.round(Math.min(90, w / 14));
     while (flakes.length < count) flakes.push(makeFlake(true));
     flakes.length = count;
   }
@@ -22,10 +22,10 @@
     return {
       x: Math.random() * w,
       y: anywhere ? Math.random() * h : -10,
-      r: 1 + Math.random() * 2,
-      vy: 0.3 + Math.random() * 0.6,
+      r: 1 + Math.random() * 2.6,
+      vy: 0.35 + Math.random() * 0.9,
       sway: Math.random() * Math.PI * 2,
-      o: 0.35 + Math.random() * 0.4
+      o: 0.45 + Math.random() * 0.45
     };
   }
 
@@ -40,8 +40,8 @@
       ctx.beginPath();
       ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
       ctx.fillStyle = "rgba(255,255,255," + f.o + ")";
-      ctx.shadowColor = "rgba(50,85,95,0.45)";
-      ctx.shadowBlur = 2;
+      ctx.shadowColor = "rgba(50,85,95,0.7)";
+      ctx.shadowBlur = 3;
       ctx.fill();
     }
     requestAnimationFrame(tick);
