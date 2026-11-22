@@ -1,15 +1,22 @@
 /**
- * Maas en Vrienden - shared site behaviour
- * Header scroll state, language switcher, scroll reveal,
- * photo placeholder fallback, back-to-top, footer year.
- * (Navigation is always fully visible - no mobile hamburger/overlay.)
+ * Maas en Vrienden - gedeeld sitegedrag
+ * Header (scroll + mobiel menu), taalkeuze, rustige scroll-animaties,
+ * foto-placeholder, terug-naar-boven, jaartal in de footer en de agenda
+ * op de homepage (uit js/events-data.js).
  */
 (function () {
   "use strict";
 
   var header = document.querySelector(".site-header");
+  var body = document.body;
 
-  /* ---------- Header scroll state ---------- */
+  function t(key, fallback) {
+    if (!window.MEV_I18N) return fallback || key;
+    var v = window.MEV_I18N.t(key);
+    return v === key && fallback ? fallback : v;
+  }
+
+  /* ---------- Header: schaduw bij scrollen + exacte hoogte ---------- */
   if (header) {
     var onScroll = function () {
       header.classList.toggle("is-scrolled", window.scrollY > 12);
@@ -17,10 +24,6 @@
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    /* Exacte header-hoogte bijhouden in --header-h, zodat elementen die
-       er sticky vlak onder moeten blijven staan (zoals de menu-toolbar)
-       altijd goed uitlijnen - ook al verandert de header-hoogte per
-       schermbreedte (bv. de mobiele nav-carrousel neemt een eigen rij in). */
     var setHeaderHeightVar = function () {
       document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
     };
@@ -29,8 +32,8 @@
     window.setTimeout(setHeaderHeightVar, 300);
   }
 
-  /* ---------- Active nav link ---------- */
-  var currentPage = document.body.getAttribute("data-page");
+  /* ---------- Actieve pagina in de navigatie ---------- */
+  var currentPage = body.getAttribute("data-page");
   if (currentPage) {
     document.querySelectorAll(".nav-link[data-nav]").forEach(function (link) {
       if (link.getAttribute("data-nav") === currentPage) {
@@ -40,132 +43,33 @@
     });
   }
 
-  /* ---------- Mobiele nav-carrousel (swipe) ---------- */
-  /* Op mobiel (zie css/components.css @media max-width:640px) wordt de
-     navigatiebalk een horizontale swipe-carrousel i.p.v. alles onder
-     elkaar - compacter, en alle 6 pagina's blijven direct bereikbaar
-     (niets verstopt achter een menu-knop). Deze code bouwt de
-     bolletjes-indicator en zorgt dat de huidige pagina bij het laden al
-     gecentreerd staat. Op desktop/tablet doet dit niets zichtbaars. */
-  var navShell = document.querySelector(".nav-shell");
-  if (navShell) {
-    var navLinks = Array.prototype.slice.call(navShell.querySelectorAll(".nav-link"));
-    if (navLinks.length) {
-      var navDots = document.createElement("div");
-      navDots.className = "nav-dots";
-      navDots.setAttribute("role", "tablist");
-      navDots.setAttribute("aria-label", "Navigatie - huidige pagina in beeld");
-
-      navLinks.forEach(function (link, index) {
-        var dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = "nav-dot";
-        dot.setAttribute("aria-label", link.textContent.trim());
-        dot.addEventListener("click", function () {
-          link.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-        });
-        navDots.appendChild(dot);
-      });
-      navShell.insertAdjacentElement("afterend", navDots);
-      var dotEls = Array.prototype.slice.call(navDots.querySelectorAll(".nav-dot"));
-
-      var updateActiveDot = function () {
-        var shellRect = navShell.getBoundingClientRect();
-        var centerX = shellRect.left + shellRect.width / 2;
-        var closestIndex = 0;
-        var closestDist = Infinity;
-        navLinks.forEach(function (link, index) {
-          var r = link.getBoundingClientRect();
-          var dist = Math.abs(r.left + r.width / 2 - centerX);
-          if (dist < closestDist) { closestDist = dist; closestIndex = index; }
-        });
-        dotEls.forEach(function (dot, index) {
-          dot.classList.toggle("is-active", index === closestIndex);
-        });
-      };
-
-      var scrollTimer;
-      navShell.addEventListener(
-        "scroll",
-        function () {
-          window.clearTimeout(scrollTimer);
-          scrollTimer = window.setTimeout(updateActiveDot, 60);
-        },
-        { passive: true }
-      );
-      window.addEventListener("resize", updateActiveDot);
-
-      window.setTimeout(function () {
-        var activeLink = navShell.querySelector(".nav-link.is-active");
-        if (activeLink && window.matchMedia("(max-width: 640px)").matches) {
-          activeLink.scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
-        }
-        updateActiveDot();
-      }, 50);
-
-      /* Sleep-om-te-scrollen (muis + touch/pen via Pointer Events), naast
-         de normale native touch-swipe die al werkt - zo blijft de balk ook
-         scrollbaar wanneer met een muis getest/gebruikt wordt.
-
-         Belangrijk: setPointerCapture() wordt pas aangeroepen zodra er
-         écht beweging is (voorbij de drempel) - NIET meteen bij
-         pointerdown. Deed het dat wel, dan werd op een echte telefoon elke
-         gewone tik (tap) op een knop meteen "gekaapt" door de balk zelf,
-         waardoor de klik nooit bij de link terechtkwam en de hele
-         navigatie onklikbaar leek. Zo blijft tikken = navigeren, en
-         slepen = scrollen. */
-      var isDragging = false;
-      var dragMoved = false;
-      var dragStartX = 0;
-      var dragScrollStart = 0;
-      var activePointerId = null;
-
-      navShell.addEventListener("pointerdown", function (e) {
-        if (e.pointerType === "mouse" && e.button !== 0) return;
-        isDragging = true;
-        dragMoved = false;
-        dragStartX = e.clientX;
-        dragScrollStart = navShell.scrollLeft;
-        activePointerId = e.pointerId;
-      });
-      navShell.addEventListener("pointermove", function (e) {
-        if (!isDragging) return;
-        var delta = e.clientX - dragStartX;
-        if (!dragMoved && Math.abs(delta) > 4) {
-          dragMoved = true;
-          navShell.classList.add("is-dragging");
-          if (navShell.setPointerCapture && activePointerId !== null) {
-            try { navShell.setPointerCapture(activePointerId); } catch (err) { /* noop */ }
-          }
-        }
-        if (dragMoved) {
-          navShell.scrollLeft = dragScrollStart - delta;
-        }
-      });
-      var endDrag = function () {
-        if (!isDragging) return;
-        isDragging = false;
-        activePointerId = null;
-        navShell.classList.remove("is-dragging");
-        updateActiveDot();
-      };
-      navShell.addEventListener("pointerup", endDrag);
-      navShell.addEventListener("pointercancel", endDrag);
-      navShell.addEventListener("pointerleave", function () { if (isDragging) endDrag(); });
-
-      /* Voorkom dat een sleepbeweging per ongeluk als klik/navigatie telt */
-      navLinks.forEach(function (link) {
-        link.addEventListener("click", function (e) {
-          if (dragMoved) {
-            e.preventDefault();
-            dragMoved = false;
-          }
-        });
-      });
-    }
+  /* ---------- Mobiel menu ---------- */
+  var navToggle = document.querySelector(".nav-toggle");
+  var navShell = document.getElementById("hoofdnavigatie");
+  if (navToggle && navShell) {
+    var setOpen = function (open) {
+      body.classList.toggle("nav-open", open);
+      navToggle.setAttribute("aria-expanded", String(open));
+      navToggle.setAttribute("aria-label", open ? t("common.nav.close", "Menu sluiten") : t("common.nav.toggle", "Menu openen"));
+    };
+    navToggle.addEventListener("click", function () {
+      setOpen(!body.classList.contains("nav-open"));
+    });
+    navShell.addEventListener("click", function (e) {
+      if (e.target.closest("a")) setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && body.classList.contains("nav-open")) {
+        setOpen(false);
+        navToggle.focus();
+      }
+    });
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 1024 && body.classList.contains("nav-open")) setOpen(false);
+    });
   }
 
-  /* ---------- Language switcher ---------- */
+  /* ---------- Taalkeuze ---------- */
   var langSwitch = document.querySelector(".lang-switch");
   if (langSwitch) {
     var langCurrent = langSwitch.querySelector(".lang-current");
@@ -194,153 +98,82 @@
     });
   }
 
-  /* ---------- Scroll reveal ---------- */
-  /* Items in een rij (voorzieningen, waarden, checklist) verschijnen na
-     elkaar i.p.v. allemaal tegelijk. */
-  document.querySelectorAll(".amenities-grid, .value-row, ul.checklist").forEach(function (group) {
-    Array.prototype.forEach.call(group.children, function (child, index) {
-      if (!child.hasAttribute("data-reveal")) child.setAttribute("data-reveal", "");
-      child.style.transitionDelay = (index * 0.06) + "s";
-      // Vertraging na het verschijnen weer weghalen, anders reageert hover traag
-      child.addEventListener("transitionend", function clearDelay() {
-        child.style.transitionDelay = "";
-        child.removeEventListener("transitionend", clearDelay);
+  /* ---------- Rustige fade-in bij scrollen ---------- */
+  function observeReveal(scope) {
+    var els = (scope || document).querySelectorAll("[data-reveal]:not(.is-visible)");
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(function (el) { el.classList.add("is-visible"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
       });
-    });
-  });
-
-  var revealEls = document.querySelectorAll("[data-reveal]");
-  if ("IntersectionObserver" in window && revealEls.length) {
-    var revealObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
-    );
-    revealEls.forEach(function (el) { revealObserver.observe(el); });
-  } else {
-    revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    els.forEach(function (el) { io.observe(el); });
   }
+  observeReveal();
 
-  /* ---------- Photo placeholder fallback ---------- */
+  /* ---------- Foto-placeholder als een foto ontbreekt ---------- */
   document.querySelectorAll(".photo-frame img").forEach(function (img) {
     var frame = img.closest(".photo-frame");
     if (!frame) return;
-    frame.classList.add("is-loading");
-    if (img.complete) {
-      if (img.naturalWidth === 0) {
-        frame.classList.add("is-placeholder");
-      }
-      frame.classList.remove("is-loading");
-    }
-    img.addEventListener("error", function () {
-      frame.classList.add("is-placeholder");
-      frame.classList.remove("is-loading");
-    });
-    img.addEventListener("load", function () {
-      if (img.naturalWidth > 0) {
-        frame.classList.remove("is-loading");
-      }
-    });
+    if (img.complete && img.naturalWidth === 0) frame.classList.add("is-placeholder");
+    img.addEventListener("error", function () { frame.classList.add("is-placeholder"); });
   });
 
-  /* ---------- Back to top ---------- */
+  /* ---------- Terug naar boven ---------- */
   var backToTop = document.querySelector(".back-to-top");
   if (backToTop) {
-    window.addEventListener(
-      "scroll",
-      function () {
-        backToTop.classList.toggle("is-visible", window.scrollY > 700);
-      },
-      { passive: true }
-    );
+    window.addEventListener("scroll", function () {
+      backToTop.classList.toggle("is-visible", window.scrollY > 900);
+    }, { passive: true });
     backToTop.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
 
-  /* ---------- Footer year ---------- */
+  /* ---------- Jaartal in de footer ---------- */
   document.querySelectorAll("[data-current-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
 
-  /* ---------- Extra beweging (uit bij "minder beweging") ---------- */
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduceMotion) return;
-
-  /* Scrollvoortgang */
-  var progress = document.createElement("div");
-  progress.className = "scroll-progress";
-  progress.setAttribute("aria-hidden", "true");
-  document.body.appendChild(progress);
-  var ticking = false;
-  var onScrollFx = function () {
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    progress.style.transform = "scaleX(" + (max > 0 ? window.scrollY / max : 0) + ")";
-    ticking = false;
-  };
-  window.addEventListener("scroll", function () {
-    if (!ticking) { ticking = true; window.requestAnimationFrame(onScrollFx); }
-  }, { passive: true });
-  onScrollFx();
-
-  /* Kaarten kantelen licht mee met de muis (alleen met muis, niet op touch) */
-  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    var bindTilt = function (card) {
-      if (card.classList.contains("tilt")) return;
-      card.classList.add("tilt");
-      card.addEventListener("mousemove", function (e) {
-        var r = card.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = "perspective(800px) rotateX(" + (-y * 6) + "deg) rotateY(" + (x * 6) + "deg) translateY(-6px)";
-      });
-      card.addEventListener("mouseleave", function () { card.style.transform = ""; });
+  /* ---------- Agenda op de homepage ---------- */
+  var agenda = document.querySelector("[data-upcoming-events]");
+  if (agenda) {
+    var emptyEl = document.querySelector("[data-upcoming-empty]");
+    var limit = parseInt(agenda.getAttribute("data-limit"), 10) || 3;
+    var esc = function (str) { var d = document.createElement("div"); d.textContent = String(str == null ? "" : str); return d.innerHTML; };
+    var lang = function () { return window.MEV_I18N ? window.MEV_I18N.getLang() : "nl"; };
+    var loc = function (o) { return o && typeof o === "object" ? (o[lang()] || o.nl || "") : (o || ""); };
+    var renderAgenda = function () {
+      var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      var today = d.toISOString().slice(0, 10);
+      var items = (window.EVENTS_DATA || []).filter(function (ev) {
+        return (ev.endDate || ev.date) >= today;
+      }).sort(function (a, b) { return a.date < b.date ? -1 : 1; }).slice(0, limit);
+      var locale = { nl: "nl-NL", en: "en-GB", de: "de-DE" }[lang()] || "nl-NL";
+      agenda.innerHTML = items.map(function (ev) {
+        var date = new Date(ev.date + "T00:00:00");
+        var img = ev.image || (ev.images && ev.images[0]) || "";
+        return '<a class="agenda-card" href="evenementen.html">' +
+          (img ? '<span class="agenda-media"><img src="' + esc(img) + '" alt="" loading="lazy"></span>' : "") +
+          '<span class="agenda-date"><span class="d">' + date.getDate() + '</span><span class="m">' + esc(date.toLocaleDateString(locale, { month: "short" }).replace(".", "")) + "</span></span>" +
+          '<span class="agenda-body">' +
+            (ev.category ? '<span class="agenda-cat">' + esc(loc(ev.category)) + "</span>" : "") +
+            '<span class="agenda-title">' + esc(loc(ev.title)) + "</span>" +
+            '<span class="agenda-meta">' + esc(date.toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" })) + (ev.time ? " · " + esc(loc(ev.time)) : "") + "</span>" +
+          "</span></a>";
+      }).join("");
+      if (emptyEl) emptyEl.hidden = items.length > 0;
+      // Geen evenementen gepland: de hele agenda-sectie verbergen
+      var section = agenda.closest("section");
+      if (section) section.hidden = items.length === 0;
     };
-    document.querySelectorAll(".suggestion-card, .event-card").forEach(bindTilt);
-    document.addEventListener("mev:langchange", function () {
-      document.querySelectorAll(".event-card").forEach(bindTilt);
-    });
+    renderAgenda();
+    document.addEventListener("mev:langchange", renderAgenda);
   }
-
-  /* Zacht uitfaden bij klikken op een interne link */
-  document.addEventListener("click", function (e) {
-    var link = e.target.closest("a[href]");
-    if (!link || e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) return;
-    var href = link.getAttribute("href");
-    if (link.target === "_blank" || !/^[\w-]+\.html(#.*)?$/.test(href)) return;
-    e.preventDefault();
-    document.body.classList.add("is-leaving");
-    window.setTimeout(function () { window.location.href = href; }, 220);
-  });
-
-  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    /* Lichtvlek die de muis volgt in donkere banners */
-    document.querySelectorAll(".cta-banner, .reviews-panel").forEach(function (panel) {
-      panel.addEventListener("mousemove", function (e) {
-        var r = panel.getBoundingClientRect();
-        panel.style.setProperty("--mx", (e.clientX - r.left) + "px");
-        panel.style.setProperty("--my", (e.clientY - r.top) + "px");
-      });
-    });
-
-    /* Magnetische knoppen: bewegen een paar pixels mee met de muis */
-    document.querySelectorAll(".btn-primary, .btn-on-dark").forEach(function (btn) {
-      btn.classList.add("is-magnetic");
-      btn.addEventListener("mousemove", function (e) {
-        var r = btn.getBoundingClientRect();
-        var x = (e.clientX - r.left - r.width / 2) * 0.18;
-        var y = (e.clientY - r.top - r.height / 2) * 0.3;
-        btn.style.transform = "translate(" + x + "px, " + (y - 3) + "px)";
-      });
-      btn.addEventListener("mouseleave", function () { btn.style.transform = ""; });
-    });
-  }
-  /* Bij terug-knop (bfcache) de pagina weer zichtbaar maken */
-  window.addEventListener("pageshow", function () { document.body.classList.remove("is-leaving"); });
 })();

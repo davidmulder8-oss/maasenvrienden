@@ -31,15 +31,16 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Fraunces:ital,wght@1,500&display=swap" rel="stylesheet">
 
 <!-- Styles -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/pages.css">
-<link rel="stylesheet" href="css/winter.css">
-<link rel="stylesheet" href="css/event-popup.css">
-<link rel="stylesheet" href="css/specials-popup.css">
+<link rel="stylesheet" href="css/style.css?v=20261122">
+<link rel="stylesheet" href="css/components.css?v=20261122">
+<link rel="stylesheet" href="css/pages.css?v=20261122">
+<link rel="stylesheet" href="css/winter.css?v=20261122">
+<link rel="stylesheet" href="css/redesign.css?v=20261122">
+<link rel="stylesheet" href="css/event-popup.css?v=20261122">
+<link rel="stylesheet" href="css/specials-popup.css?v=20261122">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -229,18 +230,24 @@
 
 <!-- ========== HEADER ========== -->
 <header class="site-header">
-  <div class="container">
+  <div class="container header-inner">
     <a href="index.html" class="brand" aria-label="Maas en Vrienden, naar de homepage">
-      <img src="images/logo-winter.png" alt="Maas en Vrienden eetcafé" width="68" height="68" fetchpriority="high">
+      <img src="images/logo-winter.png" alt="Maas en Vrienden eetcafé" width="56" height="56" fetchpriority="high">
+      <span class="brand-text"><span class="brand-name">Maas en Vrienden</span><span class="brand-sub" data-i18n="common.brandSub">Eetcafé in Andel</span></span>
     </a>
 
     <nav class="nav-shell" aria-label="Hoofdnavigatie" data-i18n-aria-label="common.nav.ariaLabel" id="hoofdnavigatie">
       <a href="index.html" class="nav-link" data-nav="home" data-i18n="common.nav.home">Home</a>
+      <a href="menu.html" class="nav-link" data-nav="menu" data-i18n="common.nav.menu">Menukaart</a>
       <a href="reserveren.html" class="nav-link" data-nav="reserveren" data-i18n="common.nav.reserveren">Reserveren</a>
-      <a href="menu.html" class="nav-link" data-nav="menu" data-i18n="common.nav.menu">Menu</a>
       <a href="over-ons.html" class="nav-link" data-nav="over-ons" data-i18n="common.nav.overons">Over ons</a>
       <a href="evenementen.html" class="nav-link" data-nav="evenementen" data-i18n="common.nav.evenementen">Evenementen</a>
-      <a href="camping.html" class="nav-link" data-nav="camping" data-i18n="common.nav.camping">De camping</a>
+      <a href="contact.html" class="nav-link" data-nav="contact" data-i18n="common.nav.contact">Contact</a>
+      <a href="reserveren.html" class="btn btn-primary nav-mobile-cta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><span data-i18n="common.cta.reserveer">Reserveer een tafel</span></a>
+      <div class="nav-mobile-contact">
+        <a href="tel:+31653200421"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>06 53 20 04 21</span></a>
+        <a href="mailto:info@maasenvrienden.nl"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg><span>info@maasenvrienden.nl</span></a>
+      </div>
     </nav>
 
     <div class="header-actions">
@@ -254,6 +261,10 @@
           <button class="lang-option" role="menuitem" data-lang="de"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 20" width="22" height="16"><rect width="30" height="6.67" fill="#000000"/><rect y="6.67" width="30" height="6.67" fill="#DD0000"/><rect y="13.33" width="30" height="6.67" fill="#FFCE00"/></svg></span> Deutsch</button>
         </div>
       </div>
+      <a href="reserveren.html" class="btn btn-primary btn-sm header-cta" data-i18n="common.cta.reserveerShort">Reserveer</a>
+      <button class="nav-toggle" type="button" aria-controls="hoofdnavigatie" aria-expanded="false" aria-label="Menu openen" data-i18n-aria-label="common.nav.toggle">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
@@ -261,67 +272,55 @@
 <main id="main">
 
   <!-- ========== HERO ========== -->
-  <section class="hero" aria-label="Sfeerbeeld van Maas en Vrienden">
-    <div class="hero-media">
-      <div class="photo-frame" style="--ar:auto; height:100%;">
-        <img src="images/hero-avond.jpg" alt="Sfeervol verlicht interieur van eetcafé Maas en Vrienden met de boom en houten bar" loading="eager" fetchpriority="high">
-        <div class="placeholder-content">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          <span class="caption" data-i18n="home.hero.photoCaption">Foto: interieur van het eetcafé</span>
-          <span class="sub" data-i18n="common.photoSoon">wordt binnenkort toegevoegd</span>
+  <section class="home-hero" aria-labelledby="heroTitle">
+    <div class="home-hero-media">
+      <img src="images/hero-avond.jpg" alt="Sfeervol verlicht interieur van eetcafé Maas en Vrienden met de boom en houten bar" width="1448" height="1086" loading="eager" fetchpriority="high">
+    </div>
+    <div class="container home-hero-inner">
+      <div class="home-hero-content">
+        <p class="hero-eyebrow" data-i18n="home.hero.eyebrow">Eetcafé aan de Maas in Andel</p>
+        <h1 id="heroTitle" class="hero-title">Maas en Vrienden</h1>
+        <p class="hero-tagline" data-i18n="home.hero.tagline">Genieten aan de Maas.</p>
+        <p class="hero-lead" data-i18n="home.hero.lead">Een warm eetcafé aan de dijk in Andel. Voor een uitgebreide lunch, een gezellig diner of gewoon een goed glas met vrienden. Schuif aan, je bent welkom.</p>
+        <div class="hero-buttons">
+          <a href="menu.html" class="btn btn-hero-light">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+            <span data-i18n="common.cta.bekijkOnzeMenu">Bekijk onze menukaart</span>
+          </a>
+          <a href="reserveren.html" class="btn btn-hero-solid">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+            <span data-i18n="common.cta.reserveer">Reserveer een tafel</span>
+          </a>
         </div>
       </div>
-    </div>
-    <div class="hero-wave" aria-hidden="true">
-      <svg viewBox="0 0 1440 110" preserveAspectRatio="none"><path d="M0,60 C220,110 420,0 720,28 C1020,56 1220,110 1440,50 L1440,110 L0,110 Z" fill="#FAF3E6"/></svg>
     </div>
   </section>
 
-  <!-- ========== BRAND INTRO / CTA / CONTACT ========== -->
-  <section class="section-tight" data-reveal>
+  <!-- ========== SNELLE INFO ========== -->
+  <section class="quickbar-wrap" aria-label="Praktische informatie">
     <div class="container">
-      <div class="brand-intro">
-        <img src="images/logo-winter.png" alt="" width="128" height="128">
-        <p class="wordmark">Maas en Vrienden.</p>
-        <p class="tagline" data-i18n="home.tagline">De smaak van samen genieten.</p>
-      </div>
-
-      <div class="hero-actions-row">
-        <div class="hero-cta-group">
-          <a href="reserveren.html" class="btn btn-primary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
-            <span data-i18n="common.cta.reserveer">Reserveer een tafel</span>
-          </a>
-          <a href="menu.html" class="btn btn-outline">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
-            <span data-i18n="common.cta.bekijkMenu">Bekijk de menukaart</span>
-          </a>
-        </div>
-
-        <div class="info-card" data-reveal data-reveal-delay="1">
-          <div class="info-row" data-status-badge>
-            <span class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
-            <div>
-              <strong><span class="status-dot"></span><span data-status-label data-i18n="home.status.loading">Status wordt geladen…</span></strong>
-              <span class="value" data-status-hours></span>
-            </div>
-          </div>
-          <div class="info-row">
-            <span class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span>
-            <div>
-              <strong data-i18n="common.email">E-mail</strong>
-              <a href="mailto:info@maasenvrienden.nl">info@maasenvrienden.nl</a>
-            </div>
-          </div>
-          <div class="info-row">
-            <span class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-            <div>
-              <strong data-i18n="common.phone">Telefoon</strong>
-              <a href="tel:+31653200421">06 53 20 04 21</a>
-              <p class="info-note" data-i18n="home.contact.phoneNote">Voor vragen: bel of mail gerust.</p>
-            </div>
+      <div class="quickbar">
+        <div class="quick-item" data-status-badge>
+          <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+          <div>
+            <strong><span class="status-dot"></span><span data-status-label data-i18n="home.status.loading">Status wordt geladen…</span></strong>
+            <span class="quick-sub" data-status-hours></span>
           </div>
         </div>
+        <a class="quick-item" href="https://www.google.com/maps/search/?api=1&amp;query=Maas%20en%20Vrienden%20Andel" target="_blank" rel="noopener">
+          <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.5-7-11.5A7 7 0 0 1 19 9.5C19 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg></span>
+          <div>
+            <strong data-i18n="common.footer.address">Hoge Maasdijk 61, Andel</strong>
+            <span class="quick-sub" data-i18n="common.route">Plan je route</span>
+          </div>
+        </a>
+        <a class="quick-item" href="tel:+31653200421">
+          <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <div>
+            <strong>06 53 20 04 21</strong>
+            <span class="quick-sub" data-i18n="home.contact.phoneNote">Voor vragen: bel of mail gerust.</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -420,6 +419,22 @@
       <div class="text-center mt-lg">
         <a href="menu.html" class="btn btn-primary" data-i18n="home.suggesties.cta">Bekijk de volledige menukaart</a>
       </div>
+    </div>
+  </section>
+
+  <!-- ========== AGENDA ========== -->
+  <section class="section section-alt" data-reveal>
+    <div class="container">
+      <div class="section-head-row">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="home.agenda.eyebrow">Agenda</p>
+          <h2 data-i18n="home.agenda.title">Binnenkort bij Maas en Vrienden</h2>
+          <p data-i18n="home.agenda.desc">Speciale avonden, weekspecials en andere momenten om naar uit te kijken.</p>
+        </div>
+        <a href="evenementen.html" class="btn btn-outline" data-i18n="home.agenda.cta">Bekijk alle evenementen</a>
+      </div>
+      <div class="agenda-list" data-upcoming-events data-limit="3"></div>
+      <p class="agenda-empty" data-upcoming-empty hidden data-i18n="home.agenda.empty">Op dit moment staan er geen evenementen gepland. Kijk binnenkort nog eens, of volg de evenementenpagina.</p>
     </div>
   </section>
 
@@ -596,22 +611,24 @@
 <!-- ========== FOOTER ========== -->
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">
-          <img src="images/logo-winter.png" alt="" width="58" height="58">
+    <div class="footer-top">
+      <div class="footer-about">
+        <a href="index.html" class="footer-brand">
+          <img src="images/logo-winter.png" alt="" width="64" height="64" loading="lazy">
           <span>Maas en Vrienden</span>
-        </div>
+        </a>
         <p data-i18n="common.footer.tagline">De smaak van samen genieten. Eetcafé aan de Maas in Andel, met huisgemaakt eten en een warm welkom.</p>
+        <a href="reserveren.html" class="btn btn-on-dark btn-sm"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><span data-i18n="common.cta.reserveer">Reserveer een tafel</span></a>
       </div>
       <div class="footer-col">
         <h4 data-i18n="common.footer.nav">Navigatie</h4>
         <ul>
           <li><a href="index.html" data-i18n="common.nav.home">Home</a></li>
+          <li><a href="menu.html" data-i18n="common.nav.menu">Menukaart</a></li>
           <li><a href="reserveren.html" data-i18n="common.nav.reserveren">Reserveren</a></li>
-          <li><a href="menu.html" data-i18n="common.nav.menu">Menu</a></li>
           <li><a href="over-ons.html" data-i18n="common.nav.overons">Over ons</a></li>
           <li><a href="evenementen.html" data-i18n="common.nav.evenementen">Evenementen</a></li>
+          <li><a href="contact.html" data-i18n="common.nav.contact">Contact</a></li>
           <li><a href="camping.html" data-i18n="common.nav.camping">De camping</a></li>
         </ul>
       </div>
@@ -622,18 +639,9 @@
       <div class="footer-col">
         <h4 data-i18n="common.footer.contact">Contact</h4>
         <ul>
-          <li class="footer-contact-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.5-7-11.5A7 7 0 0 1 19 9.5C19 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
-            <span data-i18n="common.footer.address">Andel, Land van Heusden en Altena</span>
-          </li>
-          <li class="footer-contact-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <a href="tel:+31653200421">06 53 20 04 21</a>
-          </li>
-          <li class="footer-contact-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
-            <a href="mailto:info@maasenvrienden.nl">info@maasenvrienden.nl</a>
-          </li>
+          <li class="footer-contact-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.5-7-11.5A7 7 0 0 1 19 9.5C19 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg><a href="https://www.google.com/maps/search/?api=1&amp;query=Maas%20en%20Vrienden%20Andel" target="_blank" rel="noopener" data-i18n="common.footer.address">Hoge Maasdijk 61, Andel</a></li>
+          <li class="footer-contact-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+31653200421">06 53 20 04 21</a></li>
+          <li class="footer-contact-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg><a href="mailto:info@maasenvrienden.nl">info@maasenvrienden.nl</a></li>
         </ul>
         <!-- Social iconen: activeer zodra de echte Instagram/Facebook-links bekend zijn, zie README.md -->
       </div>
@@ -653,12 +661,12 @@
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="js/i18n.js" defer></script>
-<script src="js/hours.js" defer></script>
-<script src="js/events-data.js" defer></script>
-<script src="js/event-popup.js" defer></script>
-<script src="js/specials-popup.js" defer></script>
-<script src="js/main.js" defer></script>
-<script src="js/winter.js" defer></script>
+<script src="js/i18n.js?v=20261122" defer></script>
+<script src="js/hours.js?v=20261122" defer></script>
+<script src="js/events-data.js?v=20261122" defer></script>
+<script src="js/event-popup.js?v=20261122" defer></script>
+<script src="js/specials-popup.js?v=20261122" defer></script>
+<script src="js/main.js?v=20261122" defer></script>
+<script src="js/winter.js?v=20261122" defer></script>
 </body>
 </html>
