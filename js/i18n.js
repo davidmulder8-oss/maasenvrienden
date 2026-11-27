@@ -112,7 +112,9 @@
       "home.winter.c3": "Warm welkom",
       "home.winter.c4": "Winter aan de dijk",
       "home.winter.c5": "Kerstsfeer aan de Maas",
-
+      "home.winter.c6": "Kerst aan de bar",
+      "home.winter.c7": "Kerstboom bij het raam",
+      "home.winter.c8": "Lichtjes bij de darthoek",
       "home.terras.eyebrow": "Buiten aan de dijk",
       "home.terras.title": "Ons terras aan de dijk",
       "home.terras.desc": "Ook in de herfst en winter is het uitzicht over het water prachtig. Even een frisse neus halen en daarna binnen lekker opwarmen.",
@@ -538,7 +540,9 @@
       "home.winter.c3": "A warm welcome",
       "home.winter.c4": "Winter on the dyke",
       "home.winter.c5": "Christmas by the Maas",
-
+      "home.winter.c6": "Christmas at the bar",
+      "home.winter.c7": "Christmas tree by the window",
+      "home.winter.c8": "Lights by the darts corner",
       "home.terras.eyebrow": "Out on the dyke",
       "home.terras.title": "Our terrace on the dyke",
       "home.terras.desc": "Even in autumn and winter the view over the water is beautiful. Get a breath of fresh air, then warm up inside.",
@@ -957,7 +961,9 @@
       "home.winter.c3": "Herzlich willkommen",
       "home.winter.c4": "Winter am Deich",
       "home.winter.c5": "Weihnachtsstimmung an der Maas",
-
+      "home.winter.c6": "Weihnachten an der Bar",
+      "home.winter.c7": "Weihnachtsbaum am Fenster",
+      "home.winter.c8": "Lichter an der Dartecke",
       "home.terras.eyebrow": "Draußen am Deich",
       "home.terras.title": "Unsere Terrasse am Deich",
       "home.terras.desc": "Auch im Herbst und Winter ist der Blick über das Wasser wunderschön. Kurz frische Luft schnappen und danach drinnen aufwärmen.",

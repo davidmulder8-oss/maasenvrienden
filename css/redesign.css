@@ -1144,3 +1144,12 @@ html.is-loaded .page-loader {
 @media (prefers-reduced-motion: reduce) {
   .page-loader img { animation: none; }
 }
+
+/* Kerst binnen: drie staande fotos onder de wintergalerij */
+.gallery-binnen { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.gallery-binnen .photo-frame { aspect-ratio: 3 / 4; border-radius: var(--radius-md); overflow: hidden; }
+.gallery-binnen .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 700px) {
+  .gallery-binnen { grid-template-columns: repeat(3, 78%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+  .gallery-binnen .photo-frame { scroll-snap-align: start; }
+}
